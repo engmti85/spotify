@@ -133,13 +133,13 @@ class Spotify:
 
         r = search_response.json()
         next=r['albums']['next']
-        albums = self.get_albums(r, headers)
+        albums = self.get_albums(r)
 
         while next:
             next_response = requests.get(next, headers=headers)
             nr = next_response.json()
             next=nr['albums']['next']
-            albums.extend(self.get_albums(nr, headers))
+            albums.extend(self.get_albums(nr))
 
         return albums
 
@@ -213,10 +213,13 @@ class Spotify:
         headers = self.get_auth_header()
         # get new releases for the input country
         albums = self.load_albums(country, headers)
+        print(albums[0].id)
         # get tracks in each album
         tracks = self.load_tracks(albums, headers)
+        print(tracks[0].id)
         # get artists from all tracks
         artists = self.load_artists(tracks, headers)
+        print(artists[0].id)
         # load data into postgres DB
         spotify_db = SpotifyDB()
         spotify_db.insert_data(albums, "albums")
