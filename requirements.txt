@@ -1,0 +1,5 @@
+pandas
+psycopg2
+flask==0.10.1
+requests
+psycopg2-binary

@@ -1,0 +1,23 @@
+version: '3.7'
+services:
+            
+    postgres-db:
+        restart: always
+        image: postgres:13.2
+        ports:
+            - 5432:5432     
+        environment:
+            POSTGRES_USER: postgres
+            POSTGRES_PASSWORD: postgres
+    
+    spotify:
+        build:
+          context: ./
+          dockerfile: Dockerfile
+        ports:
+            - 5000:5000
+        depends_on: 
+            - postgres-db
+        container_name: spotify
+        links: 
+            - postgres-db:postgres-db
