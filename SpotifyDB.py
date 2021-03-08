@@ -38,7 +38,7 @@ class SpotifyDB:
             """)
         conn = None
         try:
-            # connect to the PostgreSQL server
+            # connect to the PostgreSQL server     
             conn = psycopg2.connect(database="postgres", user="postgres", password="postgres", host="postgres-db", port="5432" )
             cur = conn.cursor()
             conn.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)
